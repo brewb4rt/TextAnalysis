@@ -1,7 +1,11 @@
+##
+#@author Danny Behnecke
+#@brief calculates some statistical values for a given text
+##
 
 
 class TextAnalysis:
-
+    #these characters can separate words
     separators = ['.', ',', ';', ':', '(', ')', ' ', '-', '[', ']', '{', '}', '?', '!', '&', '/']
 
     def __init__(self):
@@ -21,7 +25,9 @@ class TextAnalysis:
                     pass
         return result
 
-
+    ##
+    #@param text the text you want to analyze
+    #
     def read(self,text):
 
         for i,w in enumerate(text):
@@ -45,7 +51,7 @@ class TextAnalysis:
                 self.current_word = ''
 
 if __name__ == '__main__':
-    testText = "Dies ist der erste Testsatz. Dies ist der zweite Testsatz."
+    testText = "This is a test sentence. This is another test sentence."
     TA = TextAnalysis()
 
     TA.read(testText.lower())
