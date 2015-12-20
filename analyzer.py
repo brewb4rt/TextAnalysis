@@ -1,49 +1,53 @@
 
 
 class TextAnalysis:
-   # global separators
+
     separators = ['.', ',', ';', ':', '(', ')', ' ', '-', '[', ']', '{', '}', '?', '!', '&', '/']
 
     def __init__(self):
+        self.current_letter = ''
         self.current_word = ''
         self.stat=()
         self.words =[]
         self.letters=[]
 
     def knownObject(self,list, lw):
+        result = None
         for i,sublist in enumerate(list):
             for j,w in enumerate(sublist):
                 if lw == w:
-                    return (i,j)
+                    result = (i,j+1)
                 else:
-                    return None
-
+                    pass
+        return result
 
 
     def read(self,text):
-        for w in text:
+
+        for i,w in enumerate(text):
             if not w in TextAnalysis.separators:
+
+                self.current_letter = w
                 self.current_word += w
-                availableLetter = self.knownObject(self.letters,w)
+                availableLetter = self.knownObject(self.letters,self.current_letter)
                 if availableLetter is not None:
-                    print availableLetter
-                    print availableLetter
                     self.letters[availableLetter[0]][availableLetter[1]] += 1
                 else:
-                    self.letters.append([w, 1])
-                self.letters.append(w)
+                    self.letters.append([self.current_letter, 1])
+
             else:
                 availableWord = self.knownObject(self.words,self.current_word)
                 if availableWord is not None:
                     self.words[availableWord[0]][availableWord[1]] += 1
                 else:
-                    self.words.append([self.current_word, 1])
+                    if self.current_word is not '':
+                        self.words.append([self.current_word, 1])
                 self.current_word = ''
 
 if __name__ == '__main__':
-    testText = "Dies ist ein Testtext. Zwei Saetze als Test. Dies Dies Dies"
+    testText = "Dies ist der erste Testsatz. Dies ist der zweite Testsatz."
     TA = TextAnalysis()
 
-    TA.read(testText)
+    TA.read(testText.lower())
     print TA.letters
     print TA.words
