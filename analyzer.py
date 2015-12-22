@@ -14,6 +14,7 @@ class TextAnalysis:
         self.stat=()
         self.words =[]
         self.letters=[]
+        self.text = ''
 
     def knownObject(self,list, lw):
         result = None
@@ -25,10 +26,12 @@ class TextAnalysis:
                     pass
         return result
 
+    def readFromFile(self, pathToFile):
+        self.text = open(pathToFile).readlines()
     ##
     #@param text the text you want to analyze
     #
-    def read(self,text):
+    def readText(self, text):
 
         for i,w in enumerate(text):
             if not w in TextAnalysis.separators:
@@ -54,6 +57,6 @@ if __name__ == '__main__':
     testText = "This is a test sentence. This is another test sentence."
     TA = TextAnalysis()
 
-    TA.read(testText.lower())
+    TA.readText(testText.lower())
     print TA.letters
     print TA.words
