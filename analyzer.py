@@ -3,6 +3,7 @@
 #@brief calculates some statistical values for a given text
 ##
 
+from textLoader import textLoader
 
 class TextAnalysis:
     #these characters can separate words
@@ -26,8 +27,7 @@ class TextAnalysis:
                     pass
         return result
 
-    def readFromFile(self, pathToFile):
-        self.text = open(pathToFile).readlines()
+
     ##
     #@param text the text you want to analyze
     #
@@ -56,7 +56,10 @@ class TextAnalysis:
 if __name__ == '__main__':
     testText = "This is a test sentence. This is another test sentence."
     TA = TextAnalysis()
-
+    TL = textLoader()
     TA.readText(testText.lower())
+
+    TA.readText(TL.fromTXT("D:/test.txt"))
+
     print TA.letters
     print TA.words
