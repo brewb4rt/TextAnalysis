@@ -16,6 +16,8 @@ class TextAnalysis:
         self.words =[]
         self.letters=[]
         self.text = ''
+        self.wordCount = 0
+        self.letterCount = 0
 
     def knownObject(self,list, lw):
         result = None
@@ -29,13 +31,30 @@ class TextAnalysis:
 
 
     ##
+    #@brief calculates some statistical moments
+    #TODO finish function
+    #
+
+    def calcStatistic(self):
+        tempLetterStat=[]
+        tempWordStat = []
+        for i, w in enumerate(self.letters):
+            tempLetterStat.append([w[0], (w[1]/self.letterCount)])
+        for j, v in enumerate(self.words):
+            tempWordStat.append([v[0], (v[1]/self.wordCount)])
+
+    ##
     #@param text the text you want to analyze
     #
     def readText(self, text):
 
+        self.wordCount = 0
+        self.letterCount = 0
+
         for i,w in enumerate(text):
             if not w in TextAnalysis.separators:
 
+                self.letterCount += 1
                 self.current_letter = w
                 self.current_word += w
                 availableLetter = self.knownObject(self.letters,self.current_letter)
@@ -51,7 +70,10 @@ class TextAnalysis:
                 else:
                     if self.current_word is not '':
                         self.words.append([self.current_word, 1])
+                self.wordCount += 1
                 self.current_word = ''
+
+
 
 if __name__ == '__main__':
     testText = "This is a test sentence. This is another test sentence."
