@@ -85,3 +85,5 @@ if __name__ == '__main__':
 
     print TA.letters
     print TA.words
+    print len(TA.letters)
+    print len(TA.words)
